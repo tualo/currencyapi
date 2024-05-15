@@ -74,13 +74,8 @@ class API
     }
 
 
-
-    public static function getDateRange(int $start,int $stop,string $base_currency,array $currencies,string $accuracy='day')
+    private static function getClient()
     {
-        /*
-        curl -G https://api.currencyapi.com/v3/range?datetime_start=2021-11-30T23:59:59Z&datetime_end=2021-12-31T23:59:59Z&accuracy=day \
-    -H "apikey: YOUR-API-KEY"
-        */
         $client = new Client(
             [
                 'base_uri' => self::env('url'),
@@ -90,6 +85,13 @@ class API
                 ]
             ]
         );
+        return $client;
+    }
+
+
+    public static function getDateRange(int $start,int $stop,string $base_currency,array $currencies,string $accuracy='day')
+    {
+        $client = self::getClient();
         $response = $client->get('/v3/range', [
             'query' => [
                 'datetime_start' => date('Y-m-d\TH:i:s\Z',$start),
@@ -108,21 +110,11 @@ class API
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+
+    
     public static function getDate(int $date,string $base_currency,array $currencies,string $accuracy='day')
     {
-        /*
-        curl -G https://api.currencyapi.com/v3/range?datetime_start=2021-11-30T23:59:59Z&datetime_end=2021-12-31T23:59:59Z&accuracy=day \
-    -H "apikey: YOUR-API-KEY"
-        */
-        $client = new Client(
-            [
-                'base_uri' => self::env('url'),
-                'timeout'  => 2.0,
-                'headers' => [
-                    'apikey' => self::env('apikey')
-                ]
-            ]
-        );
+        $client = self::getClient();
         $response = $client->get('/v3/historical', [
             'query' => [
                 'date' => date('Y-m-d\TH:i:s\Z',$date),
