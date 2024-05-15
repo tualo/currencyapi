@@ -6,6 +6,7 @@ create table if not exists currencyapi_environments (
 );
 
 insert ignore into currencyapi_environments (id, val) values ('apikey', 'apikey');
+insert ignore into currencyapi_environments (id, val) values ('url', 'https://api.currencyapi.com');
 
 create table if not exists currencyapi_historical_day (
     base_currency varchar(8) not null,

@@ -108,5 +108,36 @@ class API
         $result = json_decode($response->getBody()->getContents(), true);
         return $result;
     }
+    public static function getDate(int $date,string $base_currency,array $currencies,string $accuracy='day')
+    {
+        /*
+        curl -G https://api.currencyapi.com/v3/range?datetime_start=2021-11-30T23:59:59Z&datetime_end=2021-12-31T23:59:59Z&accuracy=day \
+    -H "apikey: YOUR-API-KEY"
+        */
+        $client = new Client(
+            [
+                'base_uri' => self::env('url'),
+                'timeout'  => 2.0,
+                'headers' => [
+                    'apikey' => self::env('apikey')
+                ]
+            ]
+        );
+        $response = $client->get('/v3/historical', [
+            'query' => [
+                'date' => date('Y-m-d\TH:i:s\Z',$date),
+                'accuracy' => $accuracy,
+                'base_currency' => $base_currency,
+                'currencies' => implode(',',$currencies)
+            ]
+        ]);
+        $code = $response->getStatusCode(); // 200
+        $reason = $response->getReasonPhrase(); // OK
 
+        if ($code != 200) {
+            throw new \Exception($reason);
+        }
+        $result = json_decode($response->getBody()->getContents(), true);
+        return $result;
+    }
 }
