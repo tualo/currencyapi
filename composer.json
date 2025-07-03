@@ -1,22 +1,25 @@
 {
-    "name": "tualo/currencyapi",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Thomas Hoffmann",
-            "email": "thomas.hoffmann@tualo.de"
-        }
-    ],
-    "require": {
-        "guzzlehttp/guzzle": "*",
-        "ramsey/uuid":  "*"
-    },
-    "minimum-stability": "dev",
-    "autoload": {
-        "psr-4": {
-            "Tualo\\Office\\CurrencyAPI\\": "src/"
-        },
-        "files": ["src/functions.php"]
+  "name": "tualo/currencyapi",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Hoffmann",
+      "email": "thomas.hoffmann@tualo.de"
     }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^7.9.3",
+    "ramsey/uuid": "^4.9.0"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "Tualo\\Office\\CurrencyAPI\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "version": "1.0.1"
 }
