@@ -74,9 +74,10 @@ class Base extends \Tualo\Office\Basic\RouteWrapper
                 for ($i = 0; $i < 366; $i++) {
 
 
-                    // $x[] = $date->format('Y-m-d');
                     $date = $date->add($interval);
-
+                    if (strtotime($date->format('Y-m-d')) > time()) {
+                        continue;
+                    }
                     $result = API::getDate(
                         strtotime($date->format('Y-m-d')),
                         'EUR',
