@@ -75,7 +75,7 @@ class Base extends \Tualo\Office\Basic\RouteWrapper
 
 
                     $date = $date->add($interval);
-                    if (strtotime($date->format('Y-m-d')) > time()) {
+                    if (strtotime($date->format('Y-m-d')) > time() - 86400) {
                         continue;
                     }
                     $result = API::getDate(
